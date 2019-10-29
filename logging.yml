@@ -1,0 +1,39 @@
+version: 1
+
+formatters:
+    simple:
+        format: "%(name)s - %(lineno)d -  %(message)s"
+
+    complex:
+        format: "%(asctime)s-%(levelname)s: %(name)s %(lineno)d - %(message)s"
+
+disable_existing_loggers: False
+
+handlers:
+    console:
+        class: logging.StreamHandler
+        formatter: complex
+
+    file:
+        class: logging.handlers.TimedRotatingFileHandler
+        when: midnight
+        backupCount: 5
+        formatter: complex
+        filename : ./log/pci.log
+#root:
+#    level: INFO
+#    handlers: [console]
+#    handlers: [console, file]
+
+loggers:
+
+    'urllib3':
+        level: WARNING
+        handlers: [console]
+        propagate: yes
+
+    __main__:
+        level: INFO
+        handlers: [console, file]
+        propagate: yes
+

@@ -1,0 +1,2 @@
+//not us
+MATCH (n:machine) WHERE n.country<>"US" RETURN n

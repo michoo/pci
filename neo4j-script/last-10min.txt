@@ -1,0 +1,2 @@
+// last 10 min
+MATCH (n) WHERE datetime(n.last_update) > datetime({epochSeconds:(timestamp()/1000)-(10*60)}) RETURN n
