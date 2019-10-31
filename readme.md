@@ -1,12 +1,19 @@
 # Packet communication investigator
 
+https://github.com/michoo/pci
+
 Simply import network traffic into a graphtool to analyse packet interactions between machines and network on a graph approach to help investigate what's happening on your network.
 3 modes are available:
 - pcap packet analysis: if you already have pcap you can upload to a graph database
 - live capture: you can live capture (no history backed up)
 - live ring capture*: same has live capture but keep a ring of pcap file on db/pcap directory. 
- 
+
+From neo4j browser available at localhost:7474
 ![Alt text](Screenshot.png?raw=true "PCI ")
+
+
+From www/index.html (auto update every minutes to show last 10 min interactions)
+![Alt text](Screenshot2.png?raw=true "WWW ")
 
 nb* in the live ring capture you'll need to modify pyshark project in liveCapture.py line 68
 ```
