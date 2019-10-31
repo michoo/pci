@@ -49,6 +49,8 @@ $ gnome-session-quit --logout --no-prompt
 
 ## How to use it?
 
+
+
 ### 1.setup.sh
 A script to download geoip database in the right spot
 
@@ -59,7 +61,7 @@ and then
 ./start.sh
 
 ### 3. run pci.py script
-then you can run ./pci.py
+then you can run ./pci.py (pipenv shell!)
 - live Capture: i= interface to monitor (for example, wlp3s0)
 ```
 ./pci.py -i wlp3s0
