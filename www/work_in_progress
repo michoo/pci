@@ -1,1 +1,2 @@
-not working
+MATCH (n)-[r]->(m) RETURN { id: id(n), label:head(labels(n)), caption:n.name, size:n.count } as source,{ id: id(m), label:head(labels(m)), caption:m.name, size:m.count } as target,{ weight:log(r.weight), type:type(r)} as rel
+

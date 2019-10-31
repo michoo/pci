@@ -84,18 +84,18 @@ def get_node(arg):
     ipv4 = pat.match(arg)
     if ipv4:
         if arg.startswith('192.168') or arg.startswith('172.16') or arg.startswith('10.0'):
-            existing_node = _matcher.match("local_machine", ipv4=arg).first()
+            existing_node = _matcher.match("local_machine", name=arg).first()
             if existing_node:
                 existing_node['count'] += 1
                 existing_node['last_update'] = datetime.now(timezone.utc).isoformat()
                 _graph_db.push(existing_node)
             else:
-                existing_node = Node("local_machine", ipv4=arg, local=True, count=1,
+                existing_node = Node("local_machine", name=arg, local=True, count=1,
                                      creation_date=datetime.now(timezone.utc).isoformat(),
                                      last_update=datetime.now(timezone.utc).isoformat())
                 create_node(arg, existing_node)
         else:
-            existing_node = _matcher.match("machine", ipv4=arg).first()
+            existing_node = _matcher.match("machine", name=arg).first()
             if existing_node:
                 existing_node['count'] += 1
                 existing_node['last_update'] = datetime.now(timezone.utc).isoformat()
@@ -115,7 +115,7 @@ def get_node(arg):
                         city_name = response.city.name
                 except Exception:
                     pass
-                existing_node = Node("machine", ipv4=arg, domain=domain_name, country=country_name,
+                existing_node = Node("machine", name=arg, domain=domain_name, country=country_name,
                                      sub=sub_name, city=city_name, count=1,
                                      creation_date=datetime.now(timezone.utc).isoformat(),
                                      last_update=datetime.now(timezone.utc).isoformat())
@@ -125,24 +125,24 @@ def get_node(arg):
         mac_address = pat_mac.match(arg)
 
         if mac_address:
-            existing_node = _matcher.match("network", mac_address=arg).first()
+            existing_node = _matcher.match("network", name=arg).first()
             if existing_node:
                 existing_node['count'] += 1
                 existing_node['last_update'] = datetime.now(timezone.utc).isoformat()
                 _graph_db.push(existing_node)
             else:
-                existing_node = Node("network", mac_address=arg, count=1,
+                existing_node = Node("network", name=arg, count=1,
                                      creation_date=datetime.now(timezone.utc).isoformat(),
                                      last_update=datetime.now(timezone.utc).isoformat())
                 create_node(arg, existing_node)
         else:
-            existing_node = _matcher.match("machine_ipv6", ipv6=arg).first()
+            existing_node = _matcher.match("machine_ipv6", name=arg).first()
             if existing_node:
                 existing_node['count'] += 1
                 existing_node['last_update'] = datetime.now(timezone.utc).isoformat()
                 _graph_db.push(existing_node)
             else:
-                existing_node = Node("machine_ipv6", ipv6=arg, count=1,
+                existing_node = Node("machine_ipv6", name=arg, count=1,
                                      creation_date=datetime.now(timezone.utc).isoformat(),
                                      last_update=datetime.now(timezone.utc).isoformat())
 
@@ -163,8 +163,9 @@ def do_the_job(pkt):
     a = get_node(arg=src)
     b = get_node(arg=dst)
 
-    PACKET_TO = Relationship.type(typ)
-    _graph_db.merge(PACKET_TO(a, b))
+    # PACKET_TO = Relationship.type(typ)
+    # _graph_db.merge(PACKET_TO(a, b))
+    _graph_db.merge(Relationship(a, typ, b))
 
 
 if __name__ == "__main__":
