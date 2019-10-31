@@ -14,7 +14,7 @@ From neo4j browser available at localhost:7474
 ![Alt text](Screenshot.png?raw=true "PCI ")
 
 
-From www/index.html (auto update every minutes to show last 10 min interactions)
+From www/index.html (auto update every minutes for a 3d visualization)
 ![Alt text](Screenshot2.png?raw=true "WWW ")
 
 nb* in the live ring capture you'll need to modify pyshark project in liveCapture.py line 68
