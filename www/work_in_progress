@@ -1,3 +1,4 @@
 MATCH (n)-[r]->(m) RETURN { id: id(n), label:head(labels(n)), caption:n.name, size:n.count } as source,{ id: id(m), label:head(labels(m)), caption:m.name, size:m.count } as target,{ weight:log(r.weight), type:type(r)} as rel
 
-MATCH (n) WITH SUM(n.count) as somme MATCH (n)-[r]->(m) RETURN { id: id(n), label:head(labels(n)), caption:n.name, size:toFloat(n.count)/toFloat(somme) } as source,{ id: id(m), label:head(labels(m)), caption:m.name, size:toFloat(m.count)/toFloat(somme)} as target, { weight:r.weight, type:type(r)} as rel
+MATCH (n) WITH SUM(n.count) as somme MATCH (n)-[r]->(m) WHERE datetime(n.last_update) > datetime({epochSeconds:(timestamp()/1000)-(10*60)}) RETURN { id: id(n), label:head(labels(n)), caption:n.name, size:100.0*toFloat(n.count)/toFloat(somme) } as source,{ id: id(m), label:head(labels(m)), caption:m.name, size:10.0*toFloat(m.count)/toFloat(somme)} as target, { weight:count(r), type:type(r)} as rel
+

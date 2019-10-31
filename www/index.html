@@ -15,7 +15,11 @@
 	const session = driver.session();
 	const start = new Date()
     session
-      .run('MATCH (n) WITH SUM(n.count) as somme MATCH (n)-[r]->(m) WHERE datetime(n.last_update) > datetime({epochSeconds:(timestamp()/1000)-(10*60)}) RETURN { id: id(n), label:head(labels(n)), caption:n.name, size:10.0*toFloat(n.count)/toFloat(somme) } as source,{ id: id(m), label:head(labels(m)), caption:m.name, size:10.0*toFloat(m.count)/toFloat(somme)} as target, { weight:count(r), type:type(r)} as rel', {limit: 5000})
+      .run('MATCH (n) WITH SUM(n.count) as somme ' +
+              'MATCH (n)-[r]->(m) ' +
+              'RETURN { id: id(n), label:head(labels(n)), caption:n.name, size:100.0*toFloat(n.count)/toFloat(somme), count:n.count, country:n.country, creation_date:n.creation_date, last_update:n.last_update, domain:n.domain } as source,' +
+              '{ id: id(m), label:head(labels(m)), caption:m.name, size:100.0*toFloat(m.count)/toFloat(somme), count:m.count, country:m.country, creation_date:m.creation_date, last_update:m.last_update, domain:m.domain} as target, ' +
+              '{ weight:count(r), type:type(r)} as rel')
       .then(function (result) {
                 const nodes = {}
         const links = result.records.map(r => {
@@ -34,9 +38,13 @@
                       .nodeAutoColorBy('label')
                       .nodeVal('size')
                       .linkAutoColorBy('type')
-                      .linkWidth(0)
+                      // .linkWidth(0)
                       .linkDirectionalParticles('weight')
-                      .nodeLabel(node => `${node.label}: ${node.caption}`)
+                      .nodeLabel(node => `${node.label}: ${node.caption} <br />
+                                            requests: ${node.size}% (${node.count})<br />
+                                            country: ${node.country} - domain: ${node.domain}<br />
+                                            last_update: ${node.last_update} <br />
+                                            creation_date: ${node.creation_date}`)
                       .onNodeHover(node => elem.style.cursor = node ? 'pointer' : null);
       })
       .catch(function (error) {
