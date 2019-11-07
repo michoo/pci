@@ -1,4 +1,4 @@
-# Packet communication investigator
+# Packet Communication Investigator
 
 https://github.com/michoo/pci
 
@@ -30,12 +30,12 @@ You'll need:
  - pipenv (like it but you can modify this project to do in other ways)
  
  
-### nb: Docker
+### nb1: Docker
 to help running docker I made some scripts for newbies:
 - build.sh to build the image of Neo4j (with the best password ever)
 - start.sh to start a container 
 
-### nb: Tshark / Wireshark
+### nb2: Tshark / Wireshark
 If you are getting a ‘Permission Denied’ error when running wireshark or tshark as local user, you can add the user account to wireshark to avoid running pci.py with sudo
 ```
 // permit all user to analyse traffic (by being part of wireshark's group)
@@ -49,8 +49,6 @@ $ gnome-session-quit --logout --no-prompt
 
 ## How to use it?
 
-
-
 ### 1.setup.sh
 A script to download geoip database in the right spot
 
@@ -60,7 +58,7 @@ in neo4j-docker
 and then
 ./start.sh
 
-### 3. run pci.py script
+### 3.run pci.py script
 then you can run ./pci.py (pipenv shell!)
 - live Capture: i= interface to monitor (for example, wlp3s0)
 ```
@@ -80,7 +78,7 @@ after you'll see nodes appearing into neo4j browser (http://localhost:7474)
 ## clean.sh
 Just a script to clean directories before commit
 
-## faq:
+## Faq:
 
 - Q:What the login/password for neo4j browser (http://localhost:7474) 
 - A:it's set to neo4j/password1
@@ -94,5 +92,5 @@ Just a script to clean directories before commit
 - A:It's normal. The first time you have to define colours, labels,... Sorry can't do automatically. After that setting it will be ok. Just select the type you want to tune (for ex: machine_local) and select at the bottom of the frame the colour, label, ... It works the same way for the links
 
 
-## tested
+## Tested
 - debian10
