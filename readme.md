@@ -1,6 +1,6 @@
 # Packet Communication Investigator
 
-https://github.com/michoo/pci
+THIS PROJECT IS ARCHIVED ITS NOW MAINTAINED -> https://github.com/kubeek-sec/pci/
 
 Simply import network traffic into a graphtool to analyse packet interactions between machines and network on a graph approach to help investigate what's happening on your network.
 3 modes are available:
